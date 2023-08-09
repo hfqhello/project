@@ -24,6 +24,11 @@
         <jackson.version>2.9.6</jackson.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20140107</version>
+        </dependency>
 
         <!-- spring -->
         <dependency>
