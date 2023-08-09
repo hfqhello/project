@@ -41,7 +41,7 @@
 					</div>
 					<div id="lbottom">
 						<ul>
-							<a href="${pageContext.request.contextPath}/prod/split.action" target="myright" >
+							<a href="${pageContext.request.contextPath}/prod/splite.action" target="myright" >
 								<li class="two"><span class="glyphicon glyphicon-book" style="color: white;"></span>&nbsp;&nbsp;&nbsp;&nbsp;商品管理&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="glyphicon glyphicon-play" style="color: white;"></span> </li>
 							</a>
 							<a href="${pageContext.request.contextPath}/admin/err.jsp" target="myright">
@@ -58,7 +58,7 @@
 				</div>
 				<!--下部分右边-->
 				<div id="bright">
-					<iframe frameborder="0" scrolling="no" name="myright" width="1235px" height="700px" ></iframe>
+					<iframe frameborder="0" scrolling="yes" name="myright" width="1235px" height="700px" ></iframe>
 				</div>
 			</div>
 		</div>

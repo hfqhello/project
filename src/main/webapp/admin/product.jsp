@@ -221,7 +221,8 @@ alert(str+"11111111");
 <script type="text/javascript">
     function ajaxsplit(page) {
         //异步ajax分页请求
-        $.ajax({
+        /**
+         *  $.ajax({
         url:"${pageContext.request.contextPath}/prod/ajaxsplit.action",
             data:{"page":page},
             type:"post",
@@ -231,6 +232,17 @@ alert(str+"11111111");
                 $("#table").load("http://localhost:8080/admin/product.jsp #table");
             }
         })
+         * */
+        $.ajax({
+            url:"${pageContext.request.contextPath}/prod/ajaxsplit.action",
+            data:{"page":page},
+            type:"post",
+            success:function () {
+                $("#table").load("http://localhost:8080/mimissm/admin/product.jsp #table")
+            }
+        })
+
+
     };
 
 </script>
