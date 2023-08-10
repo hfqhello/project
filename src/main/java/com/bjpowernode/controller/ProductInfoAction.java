@@ -2,6 +2,7 @@ package com.bjpowernode.controller;
 
 
 import com.bjpowernode.pojo.ProductInfo;
+import com.bjpowernode.pojo.vo.ProductInfoVo;
 import com.bjpowernode.service.ProductInfoService;
 import com.bjpowernode.utils.FileNameUtil;
 import com.github.pagehelper.PageInfo;
@@ -168,9 +169,16 @@ public class ProductInfoAction {
              e.printStackTrace();
              request.setAttribute("msg","商品不可删除");
          }
-
         return  "forward:/prod/deleteAjaxSplit.action";
      }
+    @ResponseBody
+    @RequestMapping("/condition")
+     public  void condition(ProductInfoVo vo, HttpSession session){
+        List<ProductInfo> list=productInfoService.selectCondition(vo);
+        session.setAttribute("list",list);
+
+     }
+
 
 
 }

@@ -2,6 +2,7 @@ package com.bjpowernode.mapper;
 
 import com.bjpowernode.pojo.ProductInfo;
 import com.bjpowernode.pojo.ProductInfoExample;
+import com.bjpowernode.pojo.vo.ProductInfoVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -96,4 +97,8 @@ public interface ProductInfoMapper {
     int updateByPrimaryKey(ProductInfo record);
     //批量删除数据
     int deleteBatch(@Param("ids")String [] ids);
+
+    //多条件查询
+    List<ProductInfo> selectCondition(ProductInfoVo productInfoVo);
+
 }

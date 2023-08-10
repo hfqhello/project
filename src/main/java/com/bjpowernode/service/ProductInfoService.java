@@ -1,6 +1,7 @@
 package com.bjpowernode.service;
 
 import com.bjpowernode.pojo.ProductInfo;
+import com.bjpowernode.pojo.vo.ProductInfoVo;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -23,6 +24,6 @@ public interface ProductInfoService {
 
     //批量删除数据
     int deleteBatch(String [] ids);
-
-
+    //按条件查询
+    List<ProductInfo> selectCondition(ProductInfoVo productInfoVo);
 }

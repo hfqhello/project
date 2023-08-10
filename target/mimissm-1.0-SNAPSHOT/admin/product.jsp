@@ -57,12 +57,12 @@
             商品名称：<input name="pname" id="pname">&nbsp;&nbsp;&nbsp;
             商品类型：<select name="typeid" id="typeid">
             <option value="-1">请选择</option>
-            <c:forEach items="${ptlist}" var="pt">
+            <c:forEach items="${typeList}" var="pt">
                 <option value="${pt.typeId}">${pt.typeName}</option>
             </c:forEach>
         </select>&nbsp;&nbsp;&nbsp;
             价格：<input name="lprice" id="lprice">-<input name="hprice" id="hprice">
-            <input type="button" value="查询" onclick="ajaxsplit(${info.pageNum})">
+            <input type="button" value="查询" onclick="condintion()">
         </form>
     </div>
     <br>
@@ -93,7 +93,8 @@
                             <th>商品数量</th>
                             <th>操作</th>
                         </tr>
-                        <c:forEach items="${info.list}" var="p">
+                       <%-- <c:forEach items="${info.list}" var="p">--%>
+                        <c:forEach items="${list}" var="p">
                             <tr>
                                 <td valign="center" align="center"><input type="checkbox" name="ck" id="ck" value="${p.pId}" onclick="ckClick()"></td>
                                 <td>${p.pName}</td>
@@ -244,6 +245,25 @@
             }
         })
     };
+
+
+    function condintion() {
+        //取出查询条件
+        var pname=$("#pname").val();
+        var typeid=$("#typeid").val();
+        var lprice=$("#lprice").val();
+        var hprice=$("#hprice").val();
+        $.ajax({
+            url:"${pageContext.request.contextPath}/prod/condition.action",
+            data:{"pname":pname,"typeid":typeid,"lprice":lprice,"hprice":hprice},
+            type:"post",
+            success:function () {
+                $("#table").load("http://localhost:8080/mimissm/admin/product.jsp #table")
+            }
+
+        })
+
+    }
 </script>
 
 </html>
