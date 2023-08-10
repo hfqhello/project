@@ -172,35 +172,39 @@
     </div>
 </div>
 </body>
-
 <script type="text/javascript">
     function mysubmit() {
         $("#myform").submit();
     }
-
     //批量删除
     function deleteBatch() {
 
             //取得所有被选中删除商品的pid
             var zhi=$("input[name=ck]:checked");
             var str="";
-            var id="";
+            var pid="";
             if(zhi.length==0){
                 alert("请选择将要删除的商品！");
             }else{
                 // 有选中的商品，则取出每个选 中商品的ID，拼提交的ID的数据
                 if(confirm("您确定删除"+zhi.length+"条商品吗？")){
                 //拼接ID
-                    $.each(zhi,function (index,item) {
-
-                        id=$(item).val(); //22 33
-                        alert(id);
-                        if(id!=null)
-                            str += id+",";  //22,33,44
-                    });
-alert(str+"11111111");
-                    //发送请求到服务器端
-                   // window.location="${pageContext.request.contextPath}/prod/deletebatch.action?str="+str;
+                   $.each(zhi,function () {
+                       pid=$(this).val();
+                       if(pid!=null){
+                           str+=pid+","
+                       }
+                   })
+                $.ajax({
+                    url:"${pageContext.request.contextPath}/prod/deleteBatch.action",
+                    data:{"pids":str},
+                    type:"post",
+                    dataType:"text",
+                    success:function (msg) {
+                        alert(msg)
+                        $("#table").load("http://localhost:8080/mimissm/admin/product.jsp #table")
+                    }
+                })
 
                 }
         }
@@ -209,10 +213,20 @@ alert(str+"11111111");
     function del(pid) {
         if (confirm("确定删除吗")) {
           //向服务器提交请求完成删除
-            window.location="${pageContext.request.contextPath}/prod/delete.action?pid="+pid;
+            //window.location="${pageContext.request.contextPath}/prod/delete.action?pid="+pid;
+
+         $.ajax({
+             url:"${pageContext.request.contextPath}/prod/delete.action",
+             data:{"pid":pid},
+             type:"post",
+             dataType:"text",
+             success:function (msg) {
+                 alert(msg)
+                 $("#table").load("http://localhost:8080/mimissm/admin/product.jsp #table")
+             }
+         })
         }
     }
-
     function one(pid, ispage) {
         location.href = "${pageContext.request.contextPath}/prod/one.action?pid=" + pid + "&page=" + ispage;
     }
@@ -221,18 +235,6 @@ alert(str+"11111111");
 <script type="text/javascript">
     function ajaxsplit(page) {
         //异步ajax分页请求
-        /**
-         *  $.ajax({
-        url:"${pageContext.request.contextPath}/prod/ajaxsplit.action",
-            data:{"page":page},
-            type:"post",
-            success:function () {
-                //重新加载分页显示的组件table
-                //location.href---->http://localhost:8080/admin/login.action
-                $("#table").load("http://localhost:8080/admin/product.jsp #table");
-            }
-        })
-         * */
         $.ajax({
             url:"${pageContext.request.contextPath}/prod/ajaxsplit.action",
             data:{"page":page},
@@ -241,10 +243,7 @@ alert(str+"11111111");
                 $("#table").load("http://localhost:8080/mimissm/admin/product.jsp #table")
             }
         })
-
-
     };
-
 </script>
 
 </html>

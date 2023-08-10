@@ -2,8 +2,9 @@ package com.bjpowernode.mapper;
 
 import com.bjpowernode.pojo.ProductInfo;
 import com.bjpowernode.pojo.ProductInfoExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ProductInfoMapper {
     /**
@@ -93,4 +94,6 @@ public interface ProductInfoMapper {
      * @mbggenerated Tue Aug 08 17:07:14 CST 2023
      */
     int updateByPrimaryKey(ProductInfo record);
+    //批量删除数据
+    int deleteBatch(@Param("ids")String [] ids);
 }

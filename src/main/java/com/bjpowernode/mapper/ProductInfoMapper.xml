@@ -330,4 +330,12 @@
       p_date = #{pDate,jdbcType=DATE}
     where p_id = #{pId,jdbcType=INTEGER}
   </update>
+  <delete id="deleteBatch">
+        delete  from  product_info where p_id in
+        <foreach collection="ids" item="pid" separator="," open="(" close=")">
+          #{pid}
+        </foreach>
+  </delete>
+
+
 </mapper>

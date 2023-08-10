@@ -22,7 +22,7 @@
 				function fileChange(){//注意：此处不能使用jQuery中的change事件，因此仅触发一次，因此使用标签的：onchange属性
 
 					$.ajaxFileUpload({
-						url: '/prod/ajaxImg.action',//用于文件上传的服务器端请求地址
+						url: '${pageContext.request.contextPath}/prod/ajaxImg.action',//用于文件上传的服务器端请求地址
 						secureuri: false,//一般设置为false
 						fileElementId: 'pimage',//文件上传控件的id属性  <input type="file" id="pimage" name="pimage" />
 						dataType: 'json',//返回值类型 一般设置为json
@@ -33,7 +33,7 @@
 							//创建img 标签对象
 							var imgObj = $("<img>");
 							//给img标签对象追加属性
-							imgObj.attr("src","/image_big/"+obj.imgurl);
+							imgObj.attr("src","${pageContext.request.contextPath}/image_big/"+obj.imgurl);
 							imgObj.attr("width","100px");
 							imgObj.attr("height","100px");
 							//将图片img标签追加到imgDiv末尾
@@ -90,7 +90,7 @@
 						
 						<tr>
 							<td class="one">图片介绍</td>
-							<td> <br><div id="imgDiv" style="display:block; width: 40px; height: 50px;"><img src="/image_big/${prod.pImage}" width="100px" height="100px" ></div><br><br><br><br>
+							<td> <br><div id="imgDiv" style="display:block; width: 40px; height: 50px;"><img src="${pageContext.request.contextPath}/image_big/${prod.pImage}" width="100px" height="100px" ></div><br><br><br><br>
 								<input type="file" id="pimage" name="pimage" onchange="fileChange()">
 								<span id="imgName"></span><br>
 
@@ -116,7 +116,7 @@
 							<td class="one">类别</td>
 							<td>
 								<select name="typeId">
-									<c:forEach items="${ptlist}" var="type">
+									<c:forEach items="${typeList}" var="type">
 										<option value="${type.typeId}"
 												<c:if test="${type.typeId==prod.typeId}">
 													selected="selected"
