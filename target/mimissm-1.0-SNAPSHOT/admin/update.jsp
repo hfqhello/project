@@ -49,9 +49,8 @@
 				}
 			</script>
 <script type="text/javascript">
-	function myclose(ispage) {
-		window.location="${pageContext.request.contextPath}/admin/product?flag=split&ispage="+ispage;
-		//window.close();
+	function myclose() {
+		window.location="${pageContext.request.contextPath}/prod/splite.action";
 	}
 </script>
 			<div id="table">
@@ -138,7 +137,7 @@
 								<input type="submit" value="提交" class="btn btn-success">
 							</td>
 							<td>
-								<input type="reset" value="取消" class="btn btn-default" onclick="myclose(1)">
+								<input type="reset" value="取消" class="btn btn-default" onclick="myclose()">
 							</td>
 						</tr>
 					</table>

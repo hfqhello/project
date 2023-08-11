@@ -39,8 +39,15 @@ public class ProductInfoAction {
     //分页开发
     @RequestMapping("/splite")
     public  String  splite(HttpServletRequest request){
-        //得到第一页数据
-        PageInfo pageInfo=productInfoService.SpliPage(1,PAGE_SIZE);
+        PageInfo pageInfo=null;
+        Object vo=request.getSession().getAttribute("prodVo");
+        if(vo!=null){
+            pageInfo=productInfoService.SpliPageVo((ProductInfoVo) vo,PAGE_SIZE);
+            request.getSession().removeAttribute("prodVo");
+        }else {
+            //得到第一页数据
+            pageInfo=productInfoService.SpliPage(1,PAGE_SIZE);
+        }
         request.setAttribute("info",pageInfo);
         return "product";
     }
@@ -48,9 +55,10 @@ public class ProductInfoAction {
     //ajax分页翻页处理
     @ResponseBody
     @RequestMapping("/ajaxsplit")
-    public  void  ajaxsplit(int page,HttpSession session){
-        System.out.println(".....................ajaxsplit");
-        PageInfo pageInfo= productInfoService.SpliPage(page,PAGE_SIZE);
+    public  void  ajaxsplit(ProductInfoVo productInfoVo,HttpSession session){
+        System.out.println(".....................ajaxsplit"+productInfoVo);
+        PageInfo pageInfo= productInfoService.SpliPageVo(productInfoVo,PAGE_SIZE);
+        System.out.println(pageInfo);
         session.setAttribute("info",pageInfo);
     }
 
@@ -99,9 +107,12 @@ public class ProductInfoAction {
         return  "forward:/prod/splite.action";
     }
     @RequestMapping("/one")
-    public String one(int pid, Model model){
+    public String one(int pid,ProductInfoVo vo, Model model,HttpSession session){
         ProductInfo info=productInfoService.getByID(pid);
         model.addAttribute("prod",info);
+        System.out.println("vo....................:"+vo);
+        // 多条件页码放入session中，更新处理结束后分页时读取条件和页码进行处理工
+        session.setAttribute("prodVo",vo);
         return "update";
     }
     @RequestMapping("/update")
@@ -130,7 +141,8 @@ public class ProductInfoAction {
     }
 
     @RequestMapping("/delete")
-    public  String delete(int pid,HttpServletRequest request ){
+    public  String delete(int pid,HttpServletRequest request,ProductInfoVo productInfoVo ){
+
         int num=-1;
         try {
             num=productInfoService.delete(pid);
@@ -139,6 +151,7 @@ public class ProductInfoAction {
         }
         if(num>0){
             request.setAttribute("msg","数据删除成功");
+            request.getSession().setAttribute("productInfoVo",productInfoVo);
         }else {
             request.setAttribute("msg","数据删除失败");
         }
@@ -147,11 +160,17 @@ public class ProductInfoAction {
     @ResponseBody
     @RequestMapping(value = "/deleteAjaxSplit",produces = "text/html;charset=UTF-8")
     public  Object deleteAjaxSplit(HttpServletRequest request){
-        PageInfo info= productInfoService.SpliPage(1,PAGE_SIZE);
+
+        Object o=request.getSession().getAttribute("productInfoVo");
+        PageInfo info=null;
+        if(o!=null){
+            info=productInfoService.SpliPageVo((ProductInfoVo) o,PAGE_SIZE);
+        }else {
+            info = productInfoService.SpliPage(1,PAGE_SIZE);
+        }
         request.getSession().setAttribute("info",info);
         return  request.getAttribute("msg");
     }
-
     @RequestMapping("/deleteBatch")
      public  String deleteBatch(String pids,HttpServletRequest request){
         //将上传的字符串截开 形成商品id的字符串

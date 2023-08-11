@@ -26,4 +26,10 @@ public interface ProductInfoService {
     int deleteBatch(String [] ids);
     //按条件查询
     List<ProductInfo> selectCondition(ProductInfoVo productInfoVo);
+
+    //按条件查询分业
+    PageInfo SpliPageVo(ProductInfoVo productInfoVo,int pageSize);
+
+
+
 }

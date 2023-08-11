@@ -89,12 +89,12 @@
                             <th>商品名</th>
                             <th>商品介绍</th>
                             <th>定价（元）</th>
-                            <th>商品图片</th>
+                            <th>商品图片</th>f
                             <th>商品数量</th>
                             <th>操作</th>
                         </tr>
                        <%-- <c:forEach items="${info.list}" var="p">--%>
-                        <c:forEach items="${list}" var="p">
+                        <c:forEach items="${info.list}" var="p">
                             <tr>
                                 <td valign="center" align="center"><input type="checkbox" name="ck" id="ck" value="${p.pId}" onclick="ckClick()"></td>
                                 <td>${p.pName}</td>
@@ -110,7 +110,7 @@
                                             onclick="one(${p.pId},${info.pageNum})">编辑
                                     </button>
                                     <button type="button" class="btn btn-warning" id="mydel"
-                                            onclick="del(${p.pId})">删除
+                                            onclick="del(${p.pId},${info.pageNum})">删除
                                     </button>
                                 </td>
                             </tr>
@@ -211,14 +211,17 @@
         }
     }
     //单个删除
-    function del(pid) {
+    function del(pid,page) {
         if (confirm("确定删除吗")) {
-          //向服务器提交请求完成删除
-            //window.location="${pageContext.request.contextPath}/prod/delete.action?pid="+pid;
+            //取出查询条件
+            var pname=$("#pname").val();
+            var typeid=$("#typeid").val();
+            var lprice=$("#lprice").val();
+            var hprice=$("#hprice").val();
 
          $.ajax({
              url:"${pageContext.request.contextPath}/prod/delete.action",
-             data:{"pid":pid},
+             data:{"pid":pid,"pname":pname,"typeid":typeid,"lprice":lprice,"hprice":hprice,"page":page},
              type:"post",
              dataType:"text",
              success:function (msg) {
@@ -228,24 +231,35 @@
          })
         }
     }
-    function one(pid, ispage) {
-        location.href = "${pageContext.request.contextPath}/prod/one.action?pid=" + pid + "&page=" + ispage;
+    function one(pid, page) {
+        //取出查询条件
+        var pname=$("#pname").val();
+        var typeid=$("#typeid").val();
+        var lprice=$("#lprice").val();
+        var hprice=$("#hprice").val();
+        var str="?pid="+pid+"&page="+page+"&pname="+pname+"&typeid="+typeid+"&lprice="+lprice+"&hprice="+hprice+""
+        location.href = "${pageContext.request.contextPath}/prod/one.action"+str ;
     }
 </script>
 <!--分页的AJAX实现-->
 <script type="text/javascript">
     function ajaxsplit(page) {
+        //取出查询条件
+        var pname=$("#pname").val();
+        var typeid=$("#typeid").val();
+        var lprice=$("#lprice").val();
+        var hprice=$("#hprice").val();
+
         //异步ajax分页请求
         $.ajax({
             url:"${pageContext.request.contextPath}/prod/ajaxsplit.action",
-            data:{"page":page},
+            data:{"page":page,"pname":pname,"typeid":typeid,"lprice":lprice,"hprice":hprice},
             type:"post",
             success:function () {
                 $("#table").load("http://localhost:8080/mimissm/admin/product.jsp #table")
             }
         })
     };
-
 
     function condintion() {
         //取出查询条件
@@ -254,7 +268,7 @@
         var lprice=$("#lprice").val();
         var hprice=$("#hprice").val();
         $.ajax({
-            url:"${pageContext.request.contextPath}/prod/condition.action",
+            url:"${pageContext.request.contextPath}/prod/ajaxsplit.action",
             data:{"pname":pname,"typeid":typeid,"lprice":lprice,"hprice":hprice},
             type:"post",
             success:function () {

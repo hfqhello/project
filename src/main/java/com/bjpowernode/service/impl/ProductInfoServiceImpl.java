@@ -70,4 +70,14 @@ public class ProductInfoServiceImpl implements ProductInfoService {
         return productInfoMapper.selectCondition(productInfoVo);
     }
 
+    @Override
+    public PageInfo SpliPageVo(ProductInfoVo productInfoVo, int pageSize) {
+        //分页插件完成分页设置
+        PageHelper.startPage(productInfoVo.getPage(),pageSize);
+        List<ProductInfo> list= productInfoMapper.selectCondition(productInfoVo);
+        //将查询到的数据封装到PageInfo 中
+        PageInfo <ProductInfo> pageInfo =new PageInfo<>(list);
+        return pageInfo;
+    }
+
 }
