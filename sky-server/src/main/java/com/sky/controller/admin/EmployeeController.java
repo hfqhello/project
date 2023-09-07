@@ -112,6 +112,17 @@ public class EmployeeController {
     public  Result  getByid(@PathVariable Long id){
         return  Result.success( employeeService.getByid(id));
     }
+    /**
+     * 修改员工消息
+     * */
+    @PutMapping
+    @ApiOperation("编辑员工信息")
+    public  Result update(@RequestBody EmployeeDTO employeeDTO){
+        log.info("编辑员工信息...............");
+        employeeService.update(employeeDTO);
+        return Result.success();
+    }
+
 
 
 }

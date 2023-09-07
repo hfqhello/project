@@ -19,10 +19,20 @@ public interface EmployeeService {
      * 新增员工
      * */
     void save(EmployeeDTO employeeDTO);
-
+    /**
+     * 员工数据分页
+     * */
     PageResult  pageQuery(EmployeePageQueryDTO employeePageQueryDTO);
-
+    /**
+     * 员工状态的启动与关闭
+     * */
     void startOrstop(Integer status, Long id);
-
+    /**
+     * 根据id查找员工
+     * */
     Employee getByid(Long id);
+    /**
+     * 根据id修改员工信息
+     * */
+    void update(EmployeeDTO employeeDTO);
 }
