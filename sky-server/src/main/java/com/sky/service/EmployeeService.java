@@ -24,4 +24,5 @@ public interface EmployeeService {
 
     void startOrstop(Integer status, Long id);
 
+    Employee getByid(Long id);
 }
