@@ -46,9 +46,19 @@ public class DishController {
     @GetMapping("/{id}")
     @ApiOperation("根据id查询菜品和关联的口味数据")
     public  Result<DishVO> getById(@PathVariable Long id){
-
         return  Result.success(dishService.getByIdWithFlavor(id));
     }
+    /**
+     * 修改菜品
+     * */
+    @PutMapping
+    @ApiOperation("修改菜品")
+    public  Result   update(@RequestBody DishVO dishVO){
+        log.info("修改菜品：{}", dishVO);
+        dishService.updateWithFlavor(dishVO);
+        return  Result.success();
+    }
+
 
 
 }
