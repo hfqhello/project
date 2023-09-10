@@ -70,6 +70,16 @@ public class SetmealController {
         return Result.success();
     }
 
+    /**
+     * 套餐停起售
+     * */
+    @PostMapping("/status/{status}")
+    @ApiOperation("餐停起售")
+    public  Result startOrStop(@PathVariable Integer status ,Long id){
+        setmealService.startOrStop(status,id);
+        return  Result.success();
+    }
+
 
 
 }

@@ -32,4 +32,9 @@ public interface SetmealService {
      * 修改套餐
      * */
     void update(SetmealVO setmealVO);
+
+    /**
+     * 套餐停起售
+     * */
+    void startOrStop(Integer ststus, Long id);
 }
