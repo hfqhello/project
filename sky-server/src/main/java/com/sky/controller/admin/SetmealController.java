@@ -41,7 +41,6 @@ public class SetmealController {
        return  Result.success(pageResult);
 
     }
-
     /**
      * 批量删除套餐
      * */
@@ -56,11 +55,20 @@ public class SetmealController {
      * 根据id查询套餐
      * */
     @GetMapping("/{id}")
+    @ApiOperation("根据id查询套餐")
     public  Result <SetmealVO>  getById(@PathVariable Long id){
         SetmealVO setmealVO= setmealService.getByIdWithDish(id);
         return  Result.success(setmealVO);
     }
-
+    /**
+     * 修改套餐
+     * */
+    @PutMapping
+    @ApiOperation("修改套餐")
+    public  Result update(@RequestBody  SetmealVO setmealVO ){
+        setmealService.update(setmealVO);
+        return Result.success();
+    }
 
 
 
