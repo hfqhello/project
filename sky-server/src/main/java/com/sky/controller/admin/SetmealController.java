@@ -39,7 +39,6 @@ public class SetmealController {
        PageResult pageResult=setmealService.pageQuery(setmealPageQueryDTO);
 
        return  Result.success(pageResult);
-
     }
     /**
      * 批量删除套餐
