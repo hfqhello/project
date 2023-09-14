@@ -156,7 +156,6 @@ public class SetmealServiceImpl  implements SetmealService {
              .id(id)
              .status(ststus)
              .build();
-
         setmealMapper.update(setmeal);
     }
 
