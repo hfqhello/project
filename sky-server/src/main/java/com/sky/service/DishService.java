@@ -39,4 +39,12 @@ public interface DishService {
      * */
     List<Dish> list(Long categoryId);
 
+
+    /**
+     * 微信小程序 条件查询菜品和口味
+     * @param dish
+     * @return
+     */
+    List<DishVO> listWithFlavor(Dish dish);
+
 }
