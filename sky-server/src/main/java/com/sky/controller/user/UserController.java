@@ -39,7 +39,7 @@ public class UserController {
 
         Map claims=new HashMap();
         claims.put(JwtClaimsConstant.USER_ID,user.getId());
-        String toke= JwtUtil.createJWT(jwtProperties.getAdminSecretKey(),jwtProperties.getUserTtl(),claims);
+        String toke= JwtUtil.createJWT(jwtProperties.getUserSecretKey(),jwtProperties.getUserTtl(),claims);
 
         UserLoginVO userLoginDTO1=UserLoginVO.builder()
                 .id(user.getId())
