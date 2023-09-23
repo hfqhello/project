@@ -77,4 +77,16 @@ public interface OrderService {
      * @return
      */
     void rejection(OrdersRejectionDTO ordersRejectionDTO);
+    /**
+     * 取消订单
+     *
+     * @return
+     */
+    void cancel(OrdersCancelDTO ordersCancelDTO);
+    /**
+     * 派送订单
+     *
+     * @return
+     */
+    void delivery(Long id);
 }
