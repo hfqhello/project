@@ -1,6 +1,7 @@
 package com.sky.mapper;
 
 import com.github.pagehelper.Page;
+import com.sky.dto.GoodsSalesDTO;
 import com.sky.dto.OrdersPageQueryDTO;
 import com.sky.entity.Orders;
 import org.apache.ibatis.annotations.Mapper;
@@ -68,4 +69,12 @@ public interface OrderMapper {
      *  根据时间区间统计指定状态的订单数量
      * */
     Integer countByMap(Map map);
+
+    /**
+     * 查询指定时间区间内的销量排名top10
+     * @param
+     * @param
+     * @return
+     * */
+    List<GoodsSalesDTO> getSalesTop10(LocalDateTime beginTime, LocalDateTime endTime);
 }
